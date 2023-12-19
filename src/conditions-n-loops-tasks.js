@@ -22,7 +22,7 @@
  *  -5 => false
  */
 function isPositive(number) {
-  throw new Error('Not implemented');
+  return number >= 0;
 }
 
 /**
