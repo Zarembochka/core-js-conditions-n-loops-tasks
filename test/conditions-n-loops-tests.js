@@ -620,12 +620,12 @@ describe('core-js-conditions-n-loops optimal implementation', () => {
     }
   );
 
-  // it.optional('speed test of sortByAsc', function test() {
-  //   this.slow(30);
-  //   this.timeout(40);
-  //   tasks.sortByAsc(notSortedArr);
-  //   assert.deepEqual(notSortedArr, sortedArr);
-  // });
+  it.optional('speed test of sortByAsc', function test() {
+    this.slow(30);
+    this.timeout(40);
+    tasks.sortByAsc(notSortedArr);
+    assert.deepEqual(notSortedArr, sortedArr);
+  });
 
   it.optional('speed test of shuffleChar', function test() {
     this.slow(20);
