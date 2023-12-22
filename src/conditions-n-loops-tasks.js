@@ -510,6 +510,26 @@ function shuffleChar(str, iterations) {
   return strResult;
 }
 
+function getArrayFromNumber(number) {
+  let startNumber = number;
+  const arrNumber = [];
+  while (startNumber > 9) {
+    const lastDigit = startNumber % 10;
+    arrNumber.push(lastDigit);
+    startNumber = (startNumber - lastDigit) / 10;
+  }
+  arrNumber.push(startNumber);
+  return arrNumber;
+}
+
+function getNumberFromArray(arr) {
+  let result = 0;
+  for (let i = arr.length - 1; i >= 0; i -= 1) {
+    result = result * 10 + arr[i];
+  }
+  return result;
+}
+
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
@@ -527,8 +547,34 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const arrNumber = getArrayFromNumber(number);
+  for (let i = 0; i < arrNumber.length - 2; i += 1) {
+    if (arrNumber[i] !== 0) {
+      if (arrNumber[i] > arrNumber[i + 1]) {
+        const minValue = arrNumber[i + 1];
+        let index = i;
+        for (let j = i - 1; j >= 0; j -= 1) {
+          if (arrNumber[j] > minValue && arrNumber[j] < arrNumber[index]) {
+            index = j;
+          }
+        }
+        const temp = arrNumber[index];
+        arrNumber[index] = arrNumber[i + 1];
+        arrNumber[i + 1] = temp;
+        const arrayToSort = [];
+        for (let ii = 0; ii < i + 1; ii += 1) {
+          arrayToSort.push(arrNumber[ii]);
+        }
+        sortByAsc(arrayToSort);
+        for (let ii = 0; ii < i + 1; ii += 1) {
+          arrNumber[ii] = arrayToSort[arrayToSort.length - 1 - ii];
+        }
+        return getNumberFromArray(arrNumber);
+      }
+    }
+  }
+  return getNumberFromArray(arrNumber);
 }
 
 module.exports = {
