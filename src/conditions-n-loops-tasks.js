@@ -487,12 +487,11 @@ function shuffleChar(str, iterations) {
   let countIterations = 0;
   let oddIndex;
   let evenIndex;
-  let arr = str.split('');
-  let result;
+  let arr = str;
   while (countIterations < iterations) {
     evenIndex = 0;
     oddIndex = str.length / 2;
-    result = [];
+    const result = [];
     for (let i = 1; i < arr.length; i += 2) {
       result[oddIndex] = arr[i];
       result[evenIndex] = arr[i - 1];
@@ -504,8 +503,8 @@ function shuffleChar(str, iterations) {
     countIterations += 1;
   }
   let strResult = '';
-  for (let i = 0; i < result.length; i += 1) {
-    strResult += result[i];
+  for (let i = 0; i < arr.length; i += 1) {
+    strResult += arr[i];
   }
   return strResult;
 }
