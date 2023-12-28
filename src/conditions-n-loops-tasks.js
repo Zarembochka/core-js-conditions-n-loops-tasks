@@ -466,6 +466,27 @@ function sortByAsc(arr) {
   return result;
 }
 
+function goShuffle(arr) {
+  let evenIndex = 0;
+  let oddIndex = arr.length / 2;
+  const result = [];
+  for (let i = 1; i < arr.length; i += 2) {
+    result[oddIndex] = arr[i];
+    result[evenIndex] = arr[i - 1];
+    evenIndex += 1;
+    oddIndex += 1;
+  }
+  return result;
+}
+
+function getStringFromArray(arr) {
+  let strResult = '';
+  for (let i = 0; i < arr.length; i += 1) {
+    strResult += arr[i];
+  }
+  return strResult;
+}
+
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
@@ -484,29 +505,24 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
-  let countIterations = 0;
-  let oddIndex;
-  let evenIndex;
+  let countIterations = 1;
   let arr = str;
-  while (countIterations < iterations) {
-    evenIndex = 0;
-    oddIndex = str.length / 2;
-    const result = [];
-    for (let i = 1; i < arr.length; i += 2) {
-      result[oddIndex] = arr[i];
-      result[evenIndex] = arr[i - 1];
-      evenIndex += 1;
-      oddIndex += 1;
+  let iterationsToRepeat;
+  while (countIterations <= iterations) {
+    arr = goShuffle(arr);
+    if (getStringFromArray(arr) === str) {
+      iterationsToRepeat = countIterations;
+      break;
     }
-    const temp = result;
-    arr = temp;
     countIterations += 1;
   }
-  let strResult = '';
-  for (let i = 0; i < arr.length; i += 1) {
-    strResult += arr[i];
+  const optimalIterations = iterations % iterationsToRepeat;
+  countIterations = 1;
+  while (countIterations <= optimalIterations) {
+    arr = goShuffle(arr);
+    countIterations += 1;
   }
-  return strResult;
+  return getStringFromArray(arr);
 }
 
 function getArrayFromNumber(number) {
